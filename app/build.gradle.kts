@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -84,9 +85,11 @@ dependencies {
     kapt (libs.dagger.compiler)
 
     // Dagger Android
-    api (libs.dagger.android)
-    api (libs.dagger.android.support)
-    kapt (libs.dagger.android.processor)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    // Activity KTX for viewModels()
+    implementation (libs.androidx.activity.ktx)
 
     // Easy Permissions
     implementation ("pub.devrel:easypermissions:3.0.0")
@@ -99,4 +102,7 @@ dependencies {
 
 
     implementation ("android.arch.lifecycle:extensions:1.1.1")
+}
+kapt {
+    correctErrorTypes = true
 }
